@@ -20,10 +20,6 @@ import faultLocalization.dto.LineCoverageInfo.LineCoverageInfoComparator;
  * @author khanh
  *
  */
-/**
- * @author khanh
- *
- */
 public class CoverageReport {
 	private HashMap<String, ClassCoverageInAllTestcases> mapClassLineToTestCasesCover = new HashMap<String, ClassCoverageInAllTestcases>();
 	private HashMap<Integer, TestcaseCoverageInfo> passedTestcaseCoverageInfo = new HashMap<Integer, TestcaseCoverageInfo>();
