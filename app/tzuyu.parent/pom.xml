@@ -16,20 +16,17 @@
 		<!-- <graphstream-version>1.2</graphstream-version> -->
 
 		<!-- for icsetlv -->
-		<!--toolsjar>F:\project\tools\jdk1.6.0_26-64b\lib\tools.jar</toolsjar-->
-<!-- 		<toolsjar>D:/_1_Projects/Tzuyu/tools/jdk1.6.0_26-64b/lib/tools.jar</toolsjar> -->
-		<toolsjar>/home/lylytran/projects/Tzuyu/tools/java-7-openjdk-amd64/lib/tools.jar</toolsjar>
+		<toolsjar>${java.home}/../lib/tools.jar</toolsjar>
 		<commons-beanutils-version>1.9.1</commons-beanutils-version>
 		<javaparser-version>1.0.11</javaparser-version>
 		<wala-version>1.3.4-SNAPSHOT</wala-version>
 		<apache-commons-io-verson>1.3.2</apache-commons-io-verson>
 		<svm-version>3.17</svm-version>
-		<jdk-tool-version>1.6.0</jdk-tool-version>
 		<javaml-version>0.1.7</javaml-version>
-		<!-- <tzuyu.libs>F:\project\Tzuyu\app\tzuyuEclipsePlugin\libs</tzuyu.libs> -->
-		<tzuyu.libs>D:/_1_Projects/Tzuyu/workspace/trunk/app/tzuyuEclipsePlugin/lijavaslicerbs</tzuyu.libs>
+		<tzuyu.libs>${basedir}/../tzuyuEclipsePlugin/libs</tzuyu.libs>
 		<jacoco-version>0.7.1.201405082137</jacoco-version>
-		<javaslicer-version>20101004</javaslicer-version>
+		<javaslicer-version>1.1.1-SNAPSHOT</javaslicer-version>
+		
 	</properties>
 
 	<repositories>
@@ -123,7 +120,7 @@
 			<dependency>
 				<groupId>com.sun</groupId>
 				<artifactId>tools</artifactId>
-				<version>${jdk-tool-version}</version>
+				<version>${java.version}</version>
 				<scope>system</scope>
 				<systemPath>${toolsjar}</systemPath>
 			</dependency>
@@ -173,26 +170,46 @@
 				<artifactId>commons-cli</artifactId>
 				<version>1.2</version>
 			</dependency>
-			<dependency>
-				<groupId>de.javaslicer</groupId>
-				<artifactId>slicer</artifactId>
-				<version>${javaslicer-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.javaslicer</groupId>
-				<artifactId>tracer</artifactId>
-				<version>${javaslicer-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.javaslicer</groupId>
-				<artifactId>traceReader</artifactId>
-				<version>${javaslicer-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.javaslicer</groupId>
-				<artifactId>visualize</artifactId>
-				<version>${javaslicer-version}</version>
-			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>de.javaslicer</groupId> -->
+<!-- 				<artifactId>slicer</artifactId> -->
+<!-- 				<version>${javaslicer-version}</version> -->
+<!-- 			</dependency> -->
+<!-- 			<dependency> -->
+<!-- 				<groupId>de.javaslicer</groupId> -->
+<!-- 				<artifactId>tracer</artifactId> -->
+<!-- 				<version>${javaslicer-version}</version> -->
+<!-- 			</dependency> -->
+<!-- 			<dependency> -->
+<!-- 				<groupId>de.javaslicer</groupId> -->
+<!-- 				<artifactId>traceReader</artifactId> -->
+<!-- 				<version>${javaslicer-version}</version> -->
+<!-- 			</dependency> -->
+<!-- 			<dependency> -->
+<!-- 				<groupId>de.javaslicer</groupId> -->
+<!-- 				<artifactId>visualize</artifactId> -->
+<!-- 				<version>${javaslicer-version}</version> -->
+<!-- 			</dependency> -->
+            <dependency>
+                <groupId>de.unisb.cs.st</groupId>
+                <artifactId>javaslicer-core</artifactId>
+                <version>${javaslicer-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.unisb.cs.st</groupId>
+                <artifactId>javaslicer-common</artifactId>
+                <version>${javaslicer-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.unisb.cs.st</groupId>
+                <artifactId>javaslicer-tracer</artifactId>
+                <version>${javaslicer-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.unisb.cs.st</groupId>
+                <artifactId>javaslicer-traceReader</artifactId>
+                <version>${javaslicer-version}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>

@@ -8,6 +8,10 @@
 
 package icsetlv;
 
+import java.util.ResourceBundle;
+
+import sav.common.core.utils.StringUtils;
+
 /**
  * @author LLT
  *
@@ -15,18 +19,31 @@ package icsetlv;
 public class TestConfiguration {
 	private static TestConfiguration config;
 	private static final String junitCore = "org.junit.runner.JUnitCore";
-//	private static final String TRUNK = "F:\\project\\Tzuyu\\";
-//	private String javaHome = "C:\\Program Files\\Java\\jdk1.7.0_45";
-//	private static final String TRUNK = "/home/lylytran/projects/Tzuyu/workspace/trunk";
-//	private String javaHome = "/home/lylytran/projects/Tzuyu/tools/java-7-openjdk-amd64";
-	public static final String TRUNK = "D:/_1_Projects/Tzuyu/workspace/trunk";
-	private String javaHome = "D:/_1_Projects/Tzuyu/tools/jdk1.6.0_26-64b";
-	private String sourcePath = TRUNK + "/app/icsetlv/src/test/java";
-	private String binPath = TRUNK + "/app/icsetlv/target/test-classes";
-	private String junitLib = TRUNK + "/app/icsetlv/src/test/lib/*";
+	private String javaHome = System.getProperty("java.home");
+	private String TRUNK;
+	private String junitLib;
+	public String tracerLibPath;
+	public String javaSlicerPath;
 	
 	private TestConfiguration() {
-		
+		ResourceBundle res = ResourceBundle.getBundle("test_configuration");
+		TRUNK = res.getString("trunk");
+		junitLib = TRUNK + "/app/icsetlv/src/test/lib/*";
+		tracerLibPath = TRUNK + "/etc/javaslicer/assembly/new/tracer.jar";
+//		tracerLibPath = TRUNK + "/etc/javaslicer/assembly/new/libs/javaslicer-tracer-1.1.1-SNAPSHOT.jar";
+//		javaSlicerPath = TRUNK + "/etc/javaslicer/assembly/new/libs/*";
+	}
+	
+	public String getSourcepath(String module) {
+		return StringUtils.join("", TRUNK, "/app/", module, "/src/test/java");
+	}
+	
+	public String getTestTarget(String module) {
+		return StringUtils.join("", TRUNK, "/app/", module, "/target/test-classes");
+	}
+	
+	public String getTarget(String module) {
+		return StringUtils.join("", TRUNK, "/app/", module, "/target/classes");
 	}
 
 	public static TestConfiguration getInstance() {
@@ -34,10 +51,6 @@ public class TestConfiguration {
 			config = new TestConfiguration();
 		}
 		return config;
-	}
-
-	public String getSourcepath() {
-		return sourcePath;
 	}
 
 	public String getJavahome() {
@@ -52,15 +65,15 @@ public class TestConfiguration {
 		return junitCore;
 	}
 
-	public String getAppBinpath() {
-		return binPath;
-	}
-	
 	public String getJavaBin() {
 		return getJavahome() + "/bin";
 	}
 	
 	public String getJunitLib() {
 		return junitLib;
+	}
+
+	public static String getTrunk() {
+		return getInstance().TRUNK;
 	}
 }

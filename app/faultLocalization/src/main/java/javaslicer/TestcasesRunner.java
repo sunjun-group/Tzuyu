@@ -14,44 +14,53 @@ import java.util.List;
 
 import org.junit.Test;
 
-import faultLocaliation.sample.SampleProgramTest;
-
 /**
  * @author LLT
- *
+ * 
  */
 public class TestcasesRunner {
-	
+
 	/**
-	 * args: essential data to execute the testcases.
-	 * arg[0]: all simpleNames of test classes.
+	 * args: essential data to execute the testcases. arg[0]: all simpleNames of
+	 * test classes.
 	 */
 	public static void main(String[] args) {
-//		new SampleProgramTest().test1();
 		List<Class<?>> testClasses = extractTestClasses(args[0]);
-		/* for each test method found in test class, 
-		 * execute it, and ignore exeption.
+		/*
+		 * for each test method found in test class, execute it, and ignore
+		 * exeption.
 		 */
 		for (Class<?> testClass : testClasses) {
 			List<Method> testMethods = new ArrayList<Method>();
+			System.out.println("scan: " + testClass.getCanonicalName());
 			for (Method method : testClass.getMethods()) {
 				if (method.getAnnotation(Test.class) != null) {
 					testMethods.add(method);
+					System.out.println("found: " + method.getName());
 				}
 			}
 			// run test method
 			if (!testMethods.isEmpty()) {
+				Object instance;
 				try {
-					Object instance = testClass.getConstructor().newInstance();
+					instance = testClass.getConstructor().newInstance();
 					for (Method method : testMethods) {
-						method.invoke(instance);
+						try {
+							System.out.println("run: " + method.getName());
+							method.invoke(instance);
+						} catch (Exception e) {
+							 e.printStackTrace();
+							// ignore all classes cannot run as expected
+						}
 					}
-				} catch (Exception e) {
-					// ignore all classes cannot run as expected
+				} catch (Exception ex) {
+					System.out.println(String.format(
+							"cannot init %s due to error: %s",
+							testClass.getName(), ex));
 				}
 			}
 		}
-		
+
 	}
 
 	private static List<Class<?>> extractTestClasses(String tests) {
@@ -61,16 +70,13 @@ public class TestcasesRunner {
 			try {
 				result.add(Class.forName(clazzName));
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return result;
 	}
-	
+
 	public static String toArgs(List<String> tests) {
-//		StringBuilder sb = new StringBuilder();
-//		sb.append(b)
 		String result = null;
 		for (String test : tests) {
 			if (result == null) {

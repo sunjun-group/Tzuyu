@@ -3,7 +3,7 @@
 WALA_JARS_PATH=$TRUNK/etc/wala
 echo WALA_JARS_PATH = $WALA_JARS_PATH
 
-cd $BASE_PATH/apache-maven-3.2.2/bin
+cd $M2_BIN
 
 mvn install:install-file -Dfile=$WALA_JARS_PATH/com.ibm.wala.core-1.3.4-SNAPSHOT.jar -Dsources=$WALA_JARS_PATH/com.ibm.wala.core-1.3.4-SNAPSHOT-src.zip -DgroupId=com.ibm.wala -DartifactId=com.ibm.wala.core -Dversion=1.3.4-SNAPSHOT -Dpackaging=jar
 
