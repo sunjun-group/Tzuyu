@@ -15,6 +15,7 @@ import faultLocalization.dto.LineCoverageInfo;
 import icsetlv.AbstractTest;
 import icsetlv.BugExpert;
 import icsetlv.IcsetlvInput;
+import icsetlv.TestConfiguration;
 import icsetlv.common.dto.BreakPoint;
 import icsetlv.common.dto.TcExecResult;
 import icsetlv.common.exception.IcsetlvException;
@@ -39,10 +40,6 @@ import sav.common.core.utils.CollectionUtils;
  * 
  */
 public class ProgramTest extends AbstractTest {
-	
-	public ProgramTest() {
-		module = FALTLOCALISATION;
-	}
 
 	@Test
 	public void testLineCounter() throws Exception {
@@ -55,7 +52,7 @@ public class ProgramTest extends AbstractTest {
 		CoverageReport result = javacoco.run(testingClassNames,
 				SampleProgramTest.class);
 
-		result.Tarantula();
+		result.LocalizeFault();
 	}
 	
 	@Test
@@ -67,11 +64,8 @@ public class ProgramTest extends AbstractTest {
 //		bkps.add(new BreakPoint(clazz, "test3()V", 35));
 //		bkps.add(new BreakPoint(clazz, "test4()V", 44));
 //		bkps.add(new BreakPoint(clazz, "test5()V", 53));
-		JavaSlicer jSlicer = new JavaSlicer(config.tracerLibPath);
-		VMConfiguration vmConfig = initVmConfig();
-		vmConfig.addClasspath(config.getTarget(FALTLOCALISATION));
-//		vmConfig.addClasspath(config.javaSlicerPath);
-		jSlicer.setVmConfig(vmConfig);
+		JavaSlicer jSlicer = new JavaSlicer("/home/lylytran/projects/Tzuyu/workspace/REF-CODE/javaslicer/assembly/tracer.jar");
+		jSlicer.setVmConfig(initVmConfig());
 		List<BreakPoint> result = jSlicer.run(bkps,
 				CollectionUtils.listOf(SampleProgramTest.class.getName()));
 		for (BreakPoint bkp : result) {
@@ -82,6 +76,24 @@ public class ProgramTest extends AbstractTest {
 		}
 	}
 	
+	protected VMConfiguration initVmConfig() {
+		VMConfiguration vmConfig = super.initVmConfig();
+		vmConfig.setClasspath(new ArrayList<String>());
+		vmConfig.addClasspath(config.getJavaBin());
+		vmConfig.addClasspath("/home/lylytran/projects/Tzuyu/workspace/trunk/app/icsetlv/src/test/lib/*");
+		vmConfig.addClasspath("/home/lylytran/projects/Tzuyu/workspace/trunk/app/faultLocalization/target/test-classes");
+		vmConfig.addClasspath("/home/lylytran/projects/Tzuyu/workspace/trunk/app/faultLocalization/target/classes");
+		return vmConfig;
+	};
+	
+	private List<BreakPoint> appendBreakpoints(List<BreakPoint> bkps, String className, int...lines) {
+		for (int line : lines) {
+			bkps.add(new BreakPoint(className, line));
+		}
+		return bkps;
+	}
+
+
 	@Test
 	public void testIntegrateSvm() throws Exception {
 		String testingClassName1 = SamplePrograms.class.getName();
@@ -91,7 +103,7 @@ public class ProgramTest extends AbstractTest {
 		JavaCoCo javacoco = new JavaCoCo();
 		CoverageReport result = javacoco.run(testingClassNames,
 				SampleProgramTest.class);
-		List<LineCoverageInfo> lineCoverageInfo = result.Tarantula();
+		List<LineCoverageInfo> lineCoverageInfo = result.LocalizeFault();
 		if (lineCoverageInfo.isEmpty()) {
 			return;
 		}
@@ -115,7 +127,7 @@ public class ProgramTest extends AbstractTest {
 		input.setConfig(vmConfig);
 		input.setPassTestcases(CollectionUtils.listOf("faultLocaliation.sample.SampleProgramTestPass"));
 		input.setFailTestcases(CollectionUtils.listOf("faultLocaliation.sample.SampleProgramTestFail"));
-		input.getConfig().addClasspath(config.getTestTarget(FALTLOCALISATION));
+		input.getConfig().addClasspath(TestConfiguration.TRUNK + "/app/faultLocalization/target/test-classes");
 		return input;
 	}
 	

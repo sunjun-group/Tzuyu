@@ -23,10 +23,7 @@ import sav.common.core.utils.StringUtils;
  * 
  */
 public class AbstractTest {
-	public static final String ICSETLV = "icsetlv";
-	public static final String FALTLOCALISATION = "faultLocalization";
 	protected static TestConfiguration config = TestConfiguration.getInstance();
-	protected String module = ICSETLV;
 	
 	public void print(Object... objs) {
 		System.out.println(StringUtils.spaceJoin(objs));
@@ -49,7 +46,7 @@ public class AbstractTest {
 		vmConfig.setPort(findFreePort());
 		vmConfig.setLaunchClass(config.getJunitcore());
 		vmConfig.addClasspath(config.getJavaBin());
-		vmConfig.addClasspath(config.getTestTarget(module));
+		vmConfig.addClasspath(config.getAppBinpath());
 		vmConfig.addClasspath(config.getJunitLib());
 		return vmConfig;
 	}
@@ -73,7 +70,7 @@ public class AbstractTest {
 	
 	protected SlicerInput initSlicerInput() {
 		SlicerInput input = new SlicerInput();
-		input.setAppBinFolder(config.getTestTarget(module));
+		input.setAppBinFolder(config.getAppBinpath());
 		input.setJre(config.getJavahome());
 		return input;
 	}

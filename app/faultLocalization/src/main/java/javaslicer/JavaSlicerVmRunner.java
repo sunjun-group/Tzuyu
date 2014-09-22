@@ -20,6 +20,7 @@ import icsetlv.vm.VMRunner;
  *
  */
 public class JavaSlicerVmRunner extends VMRunner {
+	private static final String javaAgent = "-javaagent:";
 	private String tracerJarPath;
 	private String traceFilePath;
 	

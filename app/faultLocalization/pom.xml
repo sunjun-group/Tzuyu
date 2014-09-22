@@ -31,20 +31,20 @@
 			<artifactId>commons-cli</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.unisb.cs.st</groupId>
-			<artifactId>javaslicer-core</artifactId>
+			<groupId>de.javaslicer</groupId>
+			<artifactId>slicer</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.unisb.cs.st</groupId>
-			<artifactId>javaslicer-common</artifactId>
+			<groupId>de.javaslicer</groupId>
+			<artifactId>tracer</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.unisb.cs.st</groupId>
-			<artifactId>javaslicer-tracer</artifactId>
+			<groupId>de.javaslicer</groupId>
+			<artifactId>traceReader</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.unisb.cs.st</groupId>
-			<artifactId>javaslicer-traceReader</artifactId>
+			<groupId>de.javaslicer</groupId>
+			<artifactId>visualize</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -68,10 +68,6 @@ public class CoverageReport {
 			linesCoverageInfo.addAll(classCoverage.getLineCoverageInfo());
 		}
 		
-		//use slicing to remove unrelated lines in linesCoverageInfo
-		//failed test -> where failed assertion -> line -> slicing
-		//
-		
 		for(LineCoverageInfo lineCoverageInfo: linesCoverageInfo){
 			lineCoverageInfo.computeSuspiciousness(passedTestcaseCoverageInfo.size(), failedTestcaseCoverageInfo.size());
 		}
