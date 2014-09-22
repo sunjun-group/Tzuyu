@@ -19,13 +19,13 @@ import java.util.Collection;
 import java.util.List;
 
 import sav.common.core.utils.StringUtils;
-import sun.misc.VM;
 
 /**
  * @author LLT
  * 
  */
 public class VMRunner {
+	public static boolean debug = false;
 	protected static final String cpToken = "-cp";
 	/*
 	 * from jdk 1.5, we can use new JVM option: -agentlib 
@@ -42,6 +42,7 @@ public class VMRunner {
 		return vmRunner.start(config);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Process start(VMConfiguration config) throws IcsetlvException {
 		if (config.getPort() == -1) {
 			throw new IcsetlvException("Cannot find free port to start jvm!");
@@ -51,9 +52,15 @@ public class VMRunner {
 						.init(new ArrayList<String>())
 						.add(buildJavaExecArg(config));
 		buildVmOption(builder, config);
-//		List<String> commands = 
 		buildProgramArgs(config, builder);
-		return startVm((List<String>)builder.getResult());
+		List<String> commands = (List<String>)builder.getResult();
+		if (debug) {
+			System.out.println(StringUtils.join(commands, " "));
+			for (String cmd : commands) {
+				System.out.println(cmd);
+			}
+		}
+		return startVm(commands);
 	}
 
 	protected void buildProgramArgs(VMConfiguration config,
@@ -61,13 +68,9 @@ public class VMRunner {
 		builder.add(cpToken)
 				.add(toClasspathStr(config.getClasspaths()))
 				.add(config.getLaunchClass());
-//		List<String> commands = builder.getResult();
 		for (String arg : config.getProgramArgs()) {
-//			commands.add(arg);
 			builder.add(arg);
 		}
-//		return commands;
-//		return builder;
 	}
 	
 	protected void buildVmOption(CollectionBuilder<String, ?> builder, VMConfiguration config) {

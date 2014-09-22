@@ -107,7 +107,7 @@ public class IcsetlvEngineTest extends AbstractTest {
 	
 	private Map<String, List<String>> getTestcasesSourcePaths() {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		result.put(config.getSourcepath() + "/testdata/slice/FindMax.java",
+		result.put(config.getSourcepath(ICSETLV) + "/testdata/slice/FindMax.java",
 				//"/testdata/boundedStack/BoundedStack.java", 
 				null);
 		return result;

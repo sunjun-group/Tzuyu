@@ -20,10 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-
 import sav.common.core.utils.CollectionUtils;
-
 import de.unisb.cs.st.javaslicer.common.classRepresentation.Instruction;
 import de.unisb.cs.st.javaslicer.slicing.SliceInstructionsCollector;
 import de.unisb.cs.st.javaslicer.slicing.Slicer;
@@ -60,8 +57,6 @@ public class JavaSlicer {
 		while(true) {
 			try {
 				process.exitValue();
-				FileUtils.copyFile(tempFile,
-								new File("/home/lylytran/projects/Tzuyu/workspace/REF-CODE/javaslicer/test.trace"));
 				break;
 			} catch (IllegalThreadStateException ex) {
 				// means: not yet terminated

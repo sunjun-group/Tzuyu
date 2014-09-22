@@ -37,7 +37,7 @@ public class AssertionDetectorTest extends AbstractTest {
 	@Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] { { singleEleMap(TestConfiguration
-				.getInstance().getSourcepath()
+				.getInstance().getSourcepath(ICSETLV)
 				+ "testdata/boundedStack/BoundedStack.java") } });
 	}
 

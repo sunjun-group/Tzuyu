@@ -1,0 +1,65 @@
+PROJECT INITIAL SETUP
+---------------------
+
+This document aims to list steps to set up Tzuyu project for development.
+In the following steps, depend on your installation, these alias will be used:
+[TRUNK]: the absolute path to the folder where you checked out the project on your local machine.
+	This folder contains etc, app folders under it.
+[MVN_HOME]: the absolute path to the folder where you extract maven.
+[YOUR_MVN_REPOSITORY]: the absolute path to the maven repository.
+
+1. Install Eclipse: 
+- Download Eclipse IDE, VERSION: from 3.7 (Indigo): [https://www.eclipse.org/downloads/]
+- Install m2e plugin (Maven Integration plugin): [http://theopentutorials.com/tutorials/eclipse/installing-m2eclipse-maven-plugin-for-eclipse/]
+	+ Start eclipse, then go to Help -> Install New Software.
+	+ Enter http://download.eclipse.org/technology/m2e/releases into "Work with" dropdown / or select "all available sites" and enter "m2e" into "type filter text" and press Enter.
+	+ In the listed result table, select “Maven Integration for Eclipse” feature.
+	+ Click "next" and following the instruction.
+- Install tycho plugin:
+	+ Select on Window/Preferences/Maven/Discovery	
+	+ Click "Open Catalog"
+	+ On "m2e Marketplace" popup, enter "tycho" in find textfield
+	+ In the listed result, select "Tycho Project Configurators"
+	+ Click "Finish".
+- Install git plugin: (optional)
+	+ Go to Help -> Install New Software.
+	+ Select "all available sites" in "Work with" dropdown and enter "egit" into "type filter text".
+	+ Select necessary features and click "next", then following the instruction.
+2. Install maven, and setting maven in Eclipse
+- Setting maven in Eclipse
+	+ Open [TRUNK]/etc/maven/settings.xml
+	+ Replace the line with this template: "<localRepository>......</localRepository>" with <localRepository>[YOUR_MVN_REPOSITORY]</localRepository>
+	+ In Eclipse, Go to Window/Preferences/Maven/User settings
+	+ Under "User settings", Browse to [TRUNK]/etc/maven/settings.xml, then click "Update settings"
+	+ Click "OK"
+- Install maven separate from Eclipse (optional)
+	+ Download maven 3.x from here "http://maven.apache.org/" and extract into a folder (let call [MVN_HOME])
+	+ Copy [TRUNK]/etc/maven/settings.xml to [MVN_HOME]/conf/settings.xml
+3. Modify environment setttings
+	+ Go to [TRUNK]/etc
+	+ Copy and create your local setting file:
+	MacOS/Linux: create file runall-linux.sh from runall-linux-example.sh
+	Windows: create file setenv.bat from setenv-example.bat
+	+ Modify TRUNK, MVN_HOME, JAVA_HOME according to your setup.
+4. Create symbolic for TzuyuEclipsePlugin module, and install unavailable libraries into maven repository
+	+ Open Terminal/cmd
+	+ cd [TRUNK]/etc
+	+ Run setup:
+	MacOS/Linux: ./runall-linux.sh
+	Windows: setup.bat
+	+ Check the result: these symbolics will be created under [TRUNK]/app/tzuyuEclipsePlugin: icsetlvCore, savCommons, tzuyuCore
+5. Check if jdk7 already installed in your eclipse:
+	+ Go to Windows/Preferences/Java/InstalledJREs, you can see all installed jres are listed.
+	+ To check Compatible JREs to Execution Environments, go to Windows/Preferences/Java/InstalledJREs/Execution Environments
+6. Import projects into Eclipse
+	+ Select File/Import/General/Existing Projects into Workspace
+	+ Click "next"
+	+ Browse to folder [TRUNK]/app
+	+ Select all listed projects.
+	+ Click "finish"
+7. Update configuration for unit tests:
+	+ Open and edit icsetlv/src/test/resources/test_configuration.properties
+
+			 
+
+	

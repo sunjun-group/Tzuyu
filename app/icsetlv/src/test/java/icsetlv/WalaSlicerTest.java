@@ -28,7 +28,7 @@ public class WalaSlicerTest extends AbstractTest {
 	@Test
 	public void testSlice() throws IcsetlvException {
 		SlicerInput input = new SlicerInput();
-		input.setAppBinFolder(config.getAppBinpath());
+		input.setAppBinFolder(config.getTestTarget(ICSETLV));
 		input.setJre(config.getJavahome());
 		// entry points
 		List<String[]> classEntryPoints = makeEntryPoints();
